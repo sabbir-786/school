@@ -145,10 +145,7 @@
             <i class="fas fa-envelope me-2"></i>
             <span class="d-none d-lg-inline">info@manajschool.edu.in</span>
           </a>
-          <div class="header-item d-none d-md-flex">
-            <i class="fas fa-map-marker-alt me-2"></i>
-            <span>Chas, Jharkhand</span>
-          </div>
+
         </div>
 
         <!-- Right Side - Social Links & Actions -->
