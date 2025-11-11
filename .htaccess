@@ -1,0 +1,12 @@
+# ✅ Enable URL rewriting
+RewriteEngine On
+
+# ✅ Set base folder for localhost (important!)
+RewriteBase /School/
+
+# ✅ If file or directory doesn't exist, redirect to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# ✅ Pass URL as ?page=your-slug
+RewriteRule ^([a-zA-Z0-9_-]+)/?$ index.php?page=$1 [L,QSA]

@@ -11,12 +11,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manaj School - Home</title>
-    
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
          :root {
             --primary-color: #EC3237;
@@ -25,7 +25,7 @@
             --light-color: #FEFEFE;
             --gradient-primary: linear-gradient(135deg, #EC3237 0%, #C72C31 100%);
             --gradient-secondary: linear-gradient(135deg, #FBBB71 0%, #F9A952 100%);
-            
+
         }
 
         * {
@@ -314,7 +314,7 @@
 
     <!-- Hero Slideshow Section -->
     <section class="hero-slideshow">
-        
+
         <!-- Controls -->
         <div class="hero-controls">
             <button class="hero-control-btn" id="playPauseBtn" title="Play/Pause">
@@ -431,7 +431,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
         // Slideshow functionality
         let currentSlide = 0;
@@ -446,9 +446,9 @@
         function showSlide(n) {
             slides.forEach(slide => slide.classList.remove('active'));
             indicators.forEach(indicator => indicator.classList.remove('active'));
-            
+
             currentSlide = (n + slides.length) % slides.length;
-            
+
             slides[currentSlide].classList.add('active');
             indicators[currentSlide].classList.add('active');
         }
@@ -482,7 +482,7 @@
         playPauseBtn.addEventListener('click', () => {
             isPlaying = !isPlaying;
             const icon = playPauseBtn.querySelector('i');
-            
+
             if (isPlaying) {
                 icon.classList.remove('fa-play');
                 icon.classList.add('fa-pause');
@@ -499,7 +499,7 @@
         // Fullscreen control
         fullscreenBtn.addEventListener('click', () => {
             const heroSection = document.querySelector('.hero-slideshow');
-            
+
             if (!document.fullscreenElement) {
                 heroSection.requestFullscreen().catch(err => {
                     console.log('Fullscreen error:', err);
