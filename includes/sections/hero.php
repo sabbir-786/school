@@ -410,13 +410,7 @@
             </div>
         </div>
 
-        <!-- Navigation Arrows -->
-        <button class="hero-nav prev" onclick="changeSlide(-1)">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="hero-nav next" onclick="changeSlide(1)">
-            <i class="fas fa-chevron-right"></i>
-        </button>
+
 
         <!-- Indicators -->
         <div class="hero-indicators">

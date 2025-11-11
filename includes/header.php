@@ -1,7 +1,7 @@
 <?php
 /**
- * Top Header Component
- * Includes Bootstrap 5, Font Awesome, and custom design for Manaj School
+ * Top Header Component - Fully Responsive Version
+ * Bootstrap 5 + Font Awesome + Custom Styling
  */
 ?>
 <!DOCTYPE html>
@@ -11,19 +11,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manaj School of Career Development</title>
 
-  <!-- Bootstrap 5 CSS -->
+  <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- AOS Animation -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-  <!-- ===== Custom CSS ===== -->
+  <!-- Custom CSS -->
   <style>
     :root {
       --primary-color: #EC3237;
@@ -36,9 +33,8 @@
 
     body {
       font-family: 'Inter', sans-serif;
+      background: var(--light-color);
       color: var(--dark-color);
-      background-color: var(--light-color);
-      overflow-x: hidden;
     }
 
     /* =========================
@@ -57,7 +53,9 @@
       align-items: center;
       color: var(--light-color);
       font-weight: 500;
+      text-decoration: none;
       transition: color 0.3s ease;
+      white-space: nowrap;
     }
 
     .top-header .header-item:hover {
@@ -66,22 +64,23 @@
 
     .top-header .header-item i {
       color: var(--secondary-color);
-      font-size: 14px;
+      margin-right: 6px;
+      font-size: 15px;
     }
 
+    /* Social icons */
     .top-header .social-link {
       color: var(--light-color);
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 50%;
       width: 32px;
       height: 32px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
       transition: all 0.3s ease;
+      font-size: 14px;
       text-decoration: none;
-
     }
 
     .top-header .social-link:hover {
@@ -93,13 +92,15 @@
     .btn-admission {
       background: var(--light-color);
       color: var(--primary-color);
-      padding: 6px 14px;
+      padding: 6px 16px;
       border-radius: 6px;
       font-weight: 600;
-      display: flex;
-      align-items: center;
       font-size: 14px;
+      text-decoration: none;
       transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .btn-admission:hover {
@@ -108,80 +109,84 @@
       transform: translateY(-2px);
     }
 
-    /* Responsive Tweaks */
-    @media (max-width: 768px) {
+    /* ======= Responsive ======= */
+    @media (max-width: 992px) {
+      .top-header .container {
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
+      }
+
+      .top-header .header-item {
+        justify-content: center;
+        font-size: 13px;
+      }
+
+      .top-header .social-link {
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
+      }
+
+      .btn-admission {
+        font-size: 13px;
+        padding: 6px 12px;
+      }
+    }
+
+    @media (max-width: 576px) {
       .top-header {
         font-size: 13px;
-        text-align: center;
+        padding: 8px 0;
       }
-      .top-header .header-item span {
-        display: none;
+
+      .top-header .header-item {
+        flex-wrap: wrap;
       }
+
+      .top-header .header-item i {
+        font-size: 14px;
+      }
+
       .top-header .social-link {
-        width: 28px;
-        height: 28px;
-        font-size: 12px;
-      }
-      .btn-admission span {
-        display: none;
+        margin: 0 4px;
       }
     }
   </style>
 </head>
-
 <body>
+
   <!-- ===== TOP HEADER ===== -->
-  <header class="top-header">
-    <div class="container">
-      <div class="d-flex flex-wrap justify-content-between align-items-center py-2">
+  <header class="top-header py-2">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
 
-        <!-- Left Side - Contact Info -->
-        <div class="d-flex flex-wrap align-items-center gap-3">
-          <a href="tel:+911123456789" class="header-item text-decoration-none">
-            <i class="fas fa-phone me-2"></i>
-            <span class="d-none d-md-inline">+91 11 2345 6789</span>
-          </a>
-          <a href="mailto:info@manajschool.edu.in" class="header-item text-decoration-none d-none d-sm-flex">
-            <i class="fas fa-envelope me-2"></i>
-            <span class="d-none d-lg-inline">info@manajschool.edu.in</span>
-          </a>
+      <!-- Left: Contact Info -->
+      <div class="d-flex flex-wrap align-items-center gap-3 justify-content-center">
+        <a href="tel:+911123456789" class="header-item">
+          <i class="fas fa-phone"></i>
+          <span>+91 11 2345 6789</span>
+        </a>
+        <a href="mailto:info@manajschool.edu.in" class="header-item">
+          <i class="fas fa-envelope"></i>
+          <span>info@manajschool.edu.in</span>
+        </a>
+      </div>
 
+      <!-- Right: Social Links + Admission Button -->
+      <div class="d-flex flex-wrap align-items-center gap-3 justify-content-center">
+        <div class="d-flex align-items-center gap-2">
+          <a href="#" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
 
-        <!-- Right Side - Social Links & Actions -->
-        <div class="d-flex align-items-center gap-3">
-
-          <!-- Social Links -->
-          <div class="d-none d-lg-flex align-items-center gap-2">
-            <a href="#" class="social-link" aria-label="Facebook" title="Facebook">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" class="social-link" aria-label="Twitter" title="Twitter">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="social-link" aria-label="Instagram" title="Instagram">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="#" class="social-link" aria-label="YouTube" title="YouTube">
-              <i class="fab fa-youtube"></i>
-            </a>
-            <a href="#" class="social-link" aria-label="LinkedIn" title="LinkedIn">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-          </div>
-
-
-        </div>
       </div>
     </div>
   </header>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- AOS Script -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init({ duration: 800, once: true, offset: 100 });
-  </script>
 </body>
 </html>
