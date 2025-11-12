@@ -25,8 +25,6 @@
   <!-- AOS Animation -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-  <!-- Global CSS (optional external file) -->
-  <link rel="stylesheet" href="assets/css/global.css">
 
   <style>
     body {
@@ -36,10 +34,6 @@
       overflow-x: hidden;
     }
 
-    /* Optional: add global section padding */
-    section {
-      padding: 80px 0;
-    }
   </style>
 </head>
 
@@ -49,33 +43,22 @@
        TOP HEADER + NAVIGATION
        ========================= -->
   <?php include 'includes/header.php'; ?>
-  <?php include 'includes/nav.php'; ?>
+  <?php include 'includes/navbar.php'; ?>
+
 
   <!-- =========================
-       MAIN PAGE SECTIONS
+       MAIN CONTENT
        ========================= -->
-  <main>
     <?php include 'includes/sections/hero.php'; ?>
     <?php include 'includes/sections/about.php'; ?>
-    <?php include 'includes/sections/faculty.php'; ?>
     <?php include 'includes/sections/gallery.php'; ?>
     <?php include 'includes/sections/contact.php'; ?>
-  </main>
-
   <!-- =========================
-       ADMISSION FORM MODAL
-       ========================= -->
-  <?php include 'includes/sections/admission.php'; ?>
-
-  <!-- =========================
-       FOOTER SECTION
+       FOOTER
        ========================= -->
   <?php include 'includes/footer.php'; ?>
 
-  <!-- =========================
-       FLOATING ICONS (WhatsApp, Call, Scroll Top)
-       ========================= -->
-  <?php include 'includes/float.php'; ?>
+
 
   <!-- =========================
        JS FILES

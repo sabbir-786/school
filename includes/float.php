@@ -1,6 +1,6 @@
 <!-- ==============================
      FLOATING ICONS COMPONENT
-     ============================== -->
+     =============================== -->
 
 <!-- ===== Floating Buttons (Left) ===== -->
 <div class="floating-buttons-left">
@@ -35,8 +35,6 @@
     --gradient-primary: linear-gradient(135deg, #EC3237 0%, #C72C31 100%);
     --gradient-secondary: linear-gradient(135deg, #FBBB71 0%, #F9A952 100%);
   }
-
-  /* Container for left side icons */
   .floating-buttons-left {
     position: fixed;
     bottom: 25px;
@@ -46,8 +44,6 @@
     flex-direction: column;
     gap: 15px;
   }
-
-  /* Common floating button style */
   .btn-floating {
     width: 52px;
     height: 52px;
@@ -59,20 +55,15 @@
     color: white;
     transition: all 0.3s ease;
   }
-
   .btn-floating:hover {
     transform: translateY(-4px);
   }
-
-  /* Specific button colors */
   .float-whatsapp {
     background: linear-gradient(135deg, #25d366, #128c7e);
   }
-
   .float-call {
     background: var(--gradient-primary);
   }
-
   .scroll-top-btn {
     position: fixed;
     bottom: 25px;
@@ -82,7 +73,7 @@
     width: 55px;
     height: 55px;
     border-radius: 50%;
-    display: none; /* Hidden until scroll */
+    display: none;
     justify-content: center;
     align-items: center;
     font-size: 20px;
@@ -90,40 +81,33 @@
     transition: all 0.3s ease;
     z-index: 2000;
   }
-
   .scroll-top-btn:hover {
     transform: translateY(-4px);
     background: var(--gradient-secondary);
     color: #363435;
   }
-
-  /* Responsive adjustments */
   @media (max-width: 992px) {
     .btn-floating {
       width: 48px;
       height: 48px;
       font-size: 20px;
     }
-
     .scroll-top-btn {
       width: 48px;
       height: 48px;
       font-size: 18px;
     }
-
     .floating-buttons-left {
       bottom: 20px;
       left: 20px;
       gap: 10px;
     }
   }
-
   @media (max-width: 576px) {
     .floating-buttons-left {
       bottom: 15px;
       left: 15px;
     }
-
     .scroll-top-btn {
       bottom: 15px;
       right: 15px;
@@ -135,16 +119,14 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const scrollBtn = document.getElementById("scrollTopBtn");
-
-    // Show or hide the scroll button
+    // Show or hide the scroll button as soon as you scroll down a little
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 250) {
+      if (window.scrollY > 10) {
         scrollBtn.style.display = "flex";
       } else {
         scrollBtn.style.display = "none";
       }
     });
-
     // Smooth scroll to top
     scrollBtn.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
