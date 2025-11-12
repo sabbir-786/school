@@ -427,6 +427,33 @@
                 }
             });
         });
+
+        // Navbar Hide/Show on Scroll
+let lastScrollTop = 0;
+const navbar = document.querySelector('.navbar');
+const scrollThreshold = 100; // Start hiding after scrolling 100px
+
+window.addEventListener('scroll', function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollTop > scrollThreshold) {
+        if (scrollTop > lastScrollTop) {
+            // Scrolling down - hide navbar
+            navbar.classList.add('hide');
+            navbar.classList.remove('show');
+        } else {
+            // Scrolling up - show navbar
+            navbar.classList.remove('hide');
+            navbar.classList.add('show');
+        }
+    } else {
+        // At the top of the page - always show
+        navbar.classList.remove('hide');
+        navbar.classList.add('show');
+    }
+
+    lastScrollTop = scrollTop;
+});
     </script>
 </body>
 </html>
