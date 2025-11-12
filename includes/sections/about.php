@@ -1,7 +1,7 @@
 <?php
 /**
  * About Section - Manaj School of Career Development
- * Modern Framer/WordPress Inspired UI + Layered Images + AOS Animations
+ * Optimized for full responsiveness and no scroll overflow
  */
 ?>
 <section id="about" class="about-section position-relative py-5">
@@ -35,37 +35,36 @@
           </p>
 
           <!-- Highlights -->
-          <div class="row mt-4">
-            <div class="col-sm-6 mb-3" data-aos="fade-up" data-aos-delay="200">
-              <div class="about-feature">
+          <div class="row mt-4 gx-3 gy-3">
+            <div class="col-sm-6" data-aos="fade-up" data-aos-delay="200">
+              <div class="about-feature h-100">
                 <i class="fas fa-school"></i>
                 <h6>CBSE Affiliated</h6>
                 <p>High academic standards aligned with CBSE curriculum.</p>
               </div>
             </div>
-            <div class="col-sm-6 mb-3" data-aos="fade-up" data-aos-delay="300">
-              <div class="about-feature">
+            <div class="col-sm-6" data-aos="fade-up" data-aos-delay="300">
+              <div class="about-feature h-100">
                 <i class="fas fa-chalkboard-teacher"></i>
                 <h6>Experienced Faculty</h6>
                 <p>Dedicated educators committed to personalized learning.</p>
               </div>
             </div>
-            <div class="col-sm-6 mb-3" data-aos="fade-up" data-aos-delay="400">
-              <div class="about-feature">
+            <div class="col-sm-6" data-aos="fade-up" data-aos-delay="400">
+              <div class="about-feature h-100">
                 <i class="fas fa-laptop-code"></i>
                 <h6>Smart Classrooms</h6>
                 <p>Interactive digital learning with modern technology.</p>
               </div>
             </div>
-            <div class="col-sm-6 mb-3" data-aos="fade-up" data-aos-delay="500">
-              <div class="about-feature">
+            <div class="col-sm-6" data-aos="fade-up" data-aos-delay="500">
+              <div class="about-feature h-100">
                 <i class="fas fa-running"></i>
                 <h6>Sports & Activities</h6>
                 <p>Balanced growth through physical and cultural programs.</p>
               </div>
             </div>
           </div>
-
 
         </div>
       </div>
@@ -84,23 +83,30 @@
     --gradient-secondary: linear-gradient(135deg, #FBBB71, #F9A952);
   }
 
+  /* Section Base */
   .about-section {
     background: radial-gradient(circle at top left, #fff, #f9f9f9);
-    overflow: hidden;
     position: relative;
+    overflow-x: clip; /* prevent horizontal scroll */
+    overflow-y: visible;
+    width: 100%;
+    max-width: 100%;
   }
 
   /* Layered Images */
   .about-image-stack {
     position: relative;
     width: 100%;
-    height: 550px;
+    height: 480px;
+    overflow: visible;
   }
 
   .about-img {
     position: absolute;
     border-radius: 20px;
     transition: all 0.5s ease;
+    max-width: 100%;
+    height: auto;
   }
 
   .img-main {
@@ -112,29 +118,19 @@
 
   .img-secondary {
     width: 60%;
-    bottom: -30px;
+    bottom: 0; /* fixed overflow cause */
     right: 0;
     transform: rotate(4deg);
     z-index: 2;
-  }
-
-  .img-tertiary {
-    width: 55%;
-    top: 60%;
-    left: 20%;
-    transform: rotate(-4deg);
-    z-index: 1;
   }
 
   .about-image-stack:hover .img-main {
     transform: scale(1.05);
   }
 
-  .about-image-stack:hover .img-secondary,
-  .about-image-stack:hover .img-tertiary {
+  .about-image-stack:hover .img-secondary {
     transform: translateY(-5px) rotate(0deg);
   }
-
 
   /* Content */
   .about-content .about-subtitle .line {
@@ -165,11 +161,13 @@
 
   /* Features */
   .about-feature {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     border: 1px solid rgba(236, 50, 55, 0.1);
     border-radius: 15px;
     padding: 20px;
     transition: all 0.3s ease;
+    text-align: left;
+    overflow: hidden;
   }
 
   .about-feature i {
@@ -188,40 +186,21 @@
     box-shadow: 0 10px 30px rgba(236, 50, 55, 0.15);
   }
 
-  /* Button */
-  .btn-primary {
-    background: var(--gradient-primary);
-    border: none;
-    border-radius: 30px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
-
-  .btn-primary:hover {
-    background: var(--gradient-secondary);
-    color: var(--dark-color);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(236, 50, 55, 0.3);
-  }
-
-  /* Responsive */
+  /* Responsive Tweaks */
   @media (max-width: 992px) {
-    .about-title {
-      font-size: 30px;
-    }
-    .about-image-stack {
-      height: 350px;
-    }
-    .img-secondary, .img-tertiary {
-      display: none;
-    }
+    .about-title { font-size: 30px; }
+    .about-image-stack { height: 350px; }
+    .img-secondary { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .about-section { text-align: center; }
+    .about-feature { text-align: center; }
+    .about-image-stack { margin: 0 auto; }
   }
 
   @media (max-width: 576px) {
-    .floating-badge {
-      font-size: 14px;
-      padding: 8px 15px;
-    }
+    .about-title { font-size: 26px; }
   }
 </style>
 
