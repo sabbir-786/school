@@ -10,7 +10,7 @@ $page_description = "Apply online for admission at Manaj School of Career Develo
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title><?php echo $page_title ?? 'Manaj School of Career Development'; ?></title>
-    <meta name="description" content="<?php echo $page_description ?? 'Manaj School provides quality education, modern classrooms, and holistic development for students.'; ?>">
+    <meta name="description" content="<?php echo $page_description; ?>">
 
     <meta property="og:title" content="<?php echo $page_title; ?>">
     <meta property="og:description" content="<?php echo $page_description; ?>">
@@ -18,32 +18,67 @@ $page_description = "Apply online for admission at Manaj School of Career Develo
 
     <link rel="icon" type="image/png" href="assets/images/logo.png">
 
-    <!-- Stylesheets -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-    <!-- Google Fonts: Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         /* =========================================
-           GLOBAL STYLING & COLOR PALETTE
+           RESET & VARIABLES (Matched with Index.php)
            ========================================= */
         :root {
+            /* --- COLORS --- */
             --primary: #EC3237;   /* Red */
-            --secondary: #FBBB71; /* Yellow */
-            --dark: #363435;      /* Dark */
+            --primary-dark: #c82a2f;
+            --secondary: #01334d; /* Dark Blue */
+            --accent: #FBBB71;    /* Yellow/Gold */
+            --dark: #363435;      /* Black/Dark Grey */
             --light: #FEFEFE;     /* White */
             --light-gray: #f8f9fa;
-            --bs-body-font-family: 'Poppins', sans-serif;
-            --bs-body-color: var(--dark);
+            --text-grey: #555555;
+            --text-light: #f0f0f0;
+
+            /* --- FONTS --- */
+            --font-heading: 'Merriweather', serif;
+            --font-body: 'Poppins', sans-serif;
+
+            --max-width: 1200px;
+            --transition: all 0.3s ease;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            background-color: var(--light-gray); /* Light gray bg for contrast */
+            font-family: var(--font-body);
+            background-color: var(--light-gray);
+            color: var(--text-grey);
+            font-size: 16px;
+            line-height: 1.7;
         }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--secondary);
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        p { margin-bottom: 1.5rem; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* Utilities */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .section-padding { padding: 80px 0; }
+        .text-center { text-align: center; }
 
         /* Fade-in Animation */
         .fade-in {
@@ -57,162 +92,206 @@ $page_description = "Apply online for admission at Manaj School of Career Develo
         }
 
         /* =========================================
-           1. ADMISSION PAGE HEADER
+           1. PAGE HEADER & BREADCRUMBS
            ========================================= */
         .page-header {
             position: relative;
-            background: var(--dark);
+            background: var(--secondary);
             color: var(--light);
             padding: 140px 0 80px 0;
-            overflow: hidden;
+            text-align: center;
             border-bottom: 4px solid var(--primary);
+            overflow: hidden;
         }
-        .header-background {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            overflow: hidden; z-index: 0;
-        }
-        .gradient-orb {
-            position: absolute; border-radius: 50%;
-            filter: blur(80px); opacity: 0.15;
-            animation: float 20s ease-in-out infinite;
-        }
-        .orb-1 {
-            width: 400px; height: 400px; background: var(--primary);
-            top: -200px; left: -100px; animation-delay: 0s;
-        }
-        .orb-2 {
-            width: 350px; height: 350px; background: var(--secondary);
-            bottom: -150px; right: 10%; animation-delay: 7s;
-        }
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(40px, -40px); }
-        }
-        .page-header .container {
-            position: relative;
-            z-index: 1;
-        }
+
         .page-header-title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 800;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--light);
+            margin-bottom: 10px;
         }
         .page-header-title .highlight {
-            color: var(--secondary); /* Yellow */
+            color: var(--accent);
+            font-style: italic;
         }
-        .page-header-subtitle {
-            font-size: 1.25rem;
-            color: rgba(254, 254, 254, 0.8);
-            max-width: 600px;
+
+        /* Breadcrumbs */
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 15px;
+        }
+        .breadcrumb li a:hover { color: var(--accent); }
+        .breadcrumb li.active { color: var(--accent); font-weight: 600; }
+        .breadcrumb li:not(:last-child)::after {
+            content: '/';
+            margin-left: 10px;
+            color: rgba(255,255,255,0.4);
         }
 
         /* =========================================
-           2. ADMISSION FORM & STEPS
+           2. ADMISSION CONTENT (Grid Layout)
            ========================================= */
-        .admission-section {
-            padding: 80px 0;
+        .admission-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* Form takes 2/3, Steps take 1/3 */
+            gap: 40px;
+            align-items: start;
         }
 
-        /* Form Card */
+        /* --- Form Card --- */
         .form-card {
             background: var(--light);
-            padding: 30px;
+            padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         .form-card h3 {
-            font-weight: 700;
+            font-size: 1.8rem;
             color: var(--dark);
             margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
         }
 
-        /* Modern Form Styling */
+        /* Form Layout */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .form-full {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        /* Inputs */
         .form-label {
+            display: block;
             font-weight: 600;
             color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
         }
-        .form-control,
-        .form-select {
+        .text-danger { color: var(--primary); }
+
+        .form-control, .form-select {
+            width: 100%;
             padding: 12px 16px;
-            border: 2px solid #e0e0e0;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            transition: all 0.3s ease;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: #fff;
         }
-        .form-control:focus,
-        .form-select:focus {
+        .form-control:focus, .form-select:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(236, 50, 55, 0.15);
             outline: none;
+            box-shadow: 0 0 0 3px rgba(236, 50, 55, 0.1);
         }
-        .form-control.is-invalid,
-        .form-select.is-invalid {
-            border-color: #dc3545;
-        }
-        .form-control.is-valid,
-        .form-select.is-valid {
-            border-color: #198754;
-        }
+
+        textarea.form-control { resize: vertical; }
 
         /* Submit Button */
         .btn-submit {
             background-color: var(--primary);
-            border-color: var(--primary);
-            padding: 12px 24px;
+            color: var(--light);
+            padding: 14px 28px;
             font-weight: 600;
+            border: none;
             border-radius: 8px;
-            transition: all 0.3s ease;
+            cursor: pointer;
+            transition: var(--transition);
             width: 100%;
-            font-size: 1.1rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         .btn-submit:hover {
-            background-color: #c82a2f; /* Darker Red */
-            border-color: #c82a2f;
+            background-color: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(236, 50, 55, 0.3);
+            box-shadow: 0 5px 15px rgba(236, 50, 55, 0.3);
         }
 
-        /* Steps Card */
+        /* --- Steps Sidebar --- */
         .steps-card {
             background: var(--light);
-            padding: 30px;
+            padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border-top: 4px solid var(--secondary); /* Yellow accent */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--accent);
+            position: sticky;
+            top: 100px; /* Sticky sidebar */
         }
-        .steps-card h4 {
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 25px;
-        }
+
+        .steps-card h4 { margin-bottom: 30px; font-size: 1.4rem; }
+
         .step-item {
             display: flex;
             gap: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
+        .step-item:last-child { margin-bottom: 0; }
+
         .step-icon {
             flex-shrink: 0;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             background-color: rgba(251, 187, 113, 0.15); /* Light Yellow */
-            color: var(--secondary);
-            border: 2px solid var(--secondary);
+            color: var(--accent);
+            border: 2px solid var(--accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 700;
+            font-weight: 900;
+            font-size: 1.1rem;
         }
+
         .step-content h6 {
-            font-weight: 600;
-            margin-bottom: 2px;
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
+            color: var(--secondary);
         }
         .step-content p {
             font-size: 0.9rem;
-            color: #6c757d;
+            margin: 0;
             line-height: 1.5;
+            color: #666;
         }
 
+        /* Messages */
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            display: none; /* Hidden by default */
+        }
+        .alert.show { display: block; }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .admission-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .steps-card { position: static; margin-top: 40px; }
+            .page-header-title { font-size: 2.5rem; }
+        }
     </style>
 </head>
 
@@ -221,179 +300,130 @@ $page_description = "Apply online for admission at Manaj School of Career Develo
     <?php include 'includes/topbar.php'; ?>
     <?php include 'includes/navbar.php'; ?>
 
-    <!-- =========================================
-         1. ADMISSION PAGE HEADER
-         ========================================= -->
     <section class="page-header">
-        <div class="header-background">
-            <div class="gradient-orb orb-1"></div>
-            <div class="gradient-orb orb-2"></div>
-        </div>
-        <div class="container text-center">
+        <div class="container">
             <h1 class="page-header-title fade-in">Admissions <span class="highlight">2024-2025</span></h1>
-            <p class="page-header-subtitle mx-auto fade-in" style="animation-delay: 0.2s;">
-                Take the first step towards a bright future. Fill out the form to begin your journey with us.
-            </p>
+
+            <ul class="breadcrumb fade-in" style="transition-delay: 0.1s;">
+                <li><a href="index.php">Home</a></li>
+                <li class="active">Admission</li>
+            </ul>
         </div>
     </section>
 
-    <!-- =========================================
-         2. ADMISSION FORM & STEPS
-         ========================================= -->
-    <main class="admission-section">
+    <main class="section-padding">
         <div class="container">
-            <div class="row g-5">
-                <!-- Form Column -->
-                <div class="col-lg-7">
-                    <div class="form-card fade-in">
-                        <h3>Online Application Form</h3>
-                        <form id="admissionForm" novalidate>
-                            <div class="row g-3">
-                                <!-- Full Name -->
-                                <div class="col-12">
-                                    <label for="fullName" class="form-label">Student's Full Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter full name" required />
-                                    <div class="invalid-feedback">Please enter student's full name.</div>
-                                </div>
-                                <!-- Email -->
-                                <div class="col-md-6">
-                                    <label for="email" class="form-label">Parent's Email <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required />
-                                    <div class="invalid-feedback">Please enter a valid email.</div>
-                                </div>
-                                <!-- Phone -->
-                                <div class="col-md-6">
-                                    <label for="phone" class="form-label">Parent's Phone <span class="text-danger">*</span></label>
-                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="+91 98765 43210" pattern="^\+?\d{10,15}$" required />
-                                    <div class="invalid-feedback">Please enter a valid phone number.</div>
-                                </div>
-                                <!-- Grade -->
-                                <div class="col-md-6">
-                                    <label for="grade" class="form-label">Applying for Grade <span class="text-danger">*</span></label>
-                                    <select class="form-select" id="grade" name="grade" required>
-                                        <option value="" selected disabled>Select grade</option>
-                                        <option>Kindergarten</option>
-                                        <option>1st Grade</option>
-                                        <option>2nd Grade</option>
-                                        <option>3rd Grade</option>
-                                        <option>4th Grade</option>
-                                        <option>5th Grade</option>
-                                        <option>6th Grade</option>
-                                        <option>7th Grade</option>
-                                        <option>8th Grade</option>
-                                        <option>9th Grade</option>
-                                        <option>10th Grade</option>
-                                    </select>
-                                    <div class="invalid-feedback">Please select a grade.</div>
-                                </div>
-                                <!-- Date of Birth -->
-                                <div class="col-md-6">
-                                    <label for="dob" class="form-label">Date of Birth <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" id="dob" name="dob" required />
-                                    <div class="invalid-feedback">Please select a date of birth.</div>
-                                </div>
-                                <!-- Address -->
-                                <div class="col-12">
-                                    <label for="address" class="form-label">Address</label>
-                                    <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter residential address"></textarea>
-                                </div>
-                                <!-- Submit Button -->
-                                <div class="col-12 mt-4">
-                                    <button type="submit" class="btn btn-submit btn-primary">
-                                        <i class="fa-solid fa-paper-plane me-2"></i> Submit Application
-                                    </button>
-                                </div>
-                            </div>
+            <div class="admission-grid">
 
-                            <!-- Success Message -->
-                            <div id="formSuccess" class="alert alert-success mt-4 d-none" role="alert">
-                                <i class="fa-solid fa-circle-check me-2"></i>
-                                Your application has been submitted successfully! We will contact you shortly.
+                <div class="form-card fade-in">
+                    <h3>Online Application Form</h3>
+                    <form id="admissionForm" novalidate>
+
+                        <div class="form-full">
+                            <label for="fullName" class="form-label">Student's Full Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter full name" required />
+                        </div>
+
+                        <div class="form-row">
+                            <div>
+                                <label for="email" class="form-label">Parent's Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required />
                             </div>
-                        </form>
+                            <div>
+                                <label for="phone" class="form-label">Parent's Phone <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="+91 98765 43210" required />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div>
+                                <label for="grade" class="form-label">Applying for Grade <span class="text-danger">*</span></label>
+                                <select class="form-select" id="grade" name="grade" required>
+                                    <option value="" selected disabled>Select grade</option>
+                                    <option>Kindergarten</option>
+                                    <option>1st Grade</option>
+                                    <option>2nd Grade</option>
+                                    <option>3rd Grade</option>
+                                    <option>4th Grade</option>
+                                    <option>5th Grade</option>
+                                    <option>6th Grade</option>
+                                    <option>7th Grade</option>
+                                    <option>8th Grade</option>
+                                    <option>9th Grade</option>
+                                    <option>10th Grade</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="dob" class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="dob" name="dob" required />
+                            </div>
+                        </div>
+
+                        <div class="form-full">
+                            <label for="address" class="form-label">Address</label>
+                            <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter residential address"></textarea>
+                        </div>
+
+                        <div class="form-full" style="margin-top: 30px;">
+                            <button type="submit" class="btn-submit">
+                                <i class="fa-solid fa-paper-plane"></i> Submit Application
+                            </button>
+                        </div>
+
+                        <div id="formSuccess" class="alert alert-success">
+                            <i class="fa-solid fa-circle-check" style="margin-right: 8px;"></i>
+                            Your application has been submitted successfully! We will contact you shortly.
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="steps-card fade-in" style="transition-delay: 0.2s;">
+                    <h4>Admission Process</h4>
+
+                    <div class="step-item">
+                        <div class="step-icon">1</div>
+                        <div class="step-content">
+                            <h6>Submit the Form</h6>
+                            <p>Fill out the online application with all the required details for the student and parent/guardian.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-icon">2</div>
+                        <div class="step-content">
+                            <h6>Document Review</h6>
+                            <p>Our admission team will review your application. We will contact you if we need more information.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-icon">3</div>
+                        <div class="step-content">
+                            <h6>Interview & Test</h6>
+                            <p>Shortlisted candidates will be called for a simple entrance test and a parent-principal interview.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-icon"><i class="fa-solid fa-star"></i></div>
+                        <div class="step-content">
+                            <h6>Confirmation</h6>
+                            <p>Successful candidates will receive an admission offer. Welcome to the Manaj School family!</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Steps Column -->
-                <div class="col-lg-5">
-                    <div class="steps-card fade-in" style="animation-delay: 0.2s;">
-                        <h4>Admission Process</h4>
-
-                        <div class="step-item">
-                            <div class="step-icon">1</div>
-                            <div class="step-content">
-                                <h6>Submit the Form</h6>
-                                <p>Fill out the online application with all the required details for the student and parent/guardian.</p>
-                            </div>
-                        </div>
-
-                        <div class="step-item">
-                            <div class="step-icon">2</div>
-                            <div class="step-content">
-                                <h6>Document Review</h6>
-                                <p>Our admission team will review your application and documents. We will contact you if we need more information.</p>
-                            </div>
-                        </div>
-
-                        <div class="step-item">
-                            <div class="step-icon">3</div>
-                            <div class="step-content">
-                                <h6>Interview & Test</h6>
-                                <p>Shortlisted candidates will be called for a simple entrance test (for Grade 1 and above) and a parent-principal interview.</p>
-                            </div>
-                        </div>
-
-                        <div class="step-item mb-0">
-                            <div class="step-icon"><i class="fa-solid fa-star"></i></div>
-                            <div class="step-content">
-                                <h6>Confirmation</h6>
-                                <p>Successful candidates will receive an admission offer. Welcome to the Manaj School family!</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
             </div>
         </div>
     </main>
 
     <?php include 'includes/footer.php'; ?>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Form Validation & Animation Script -->
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Form Validation
-        const form = document.getElementById('admissionForm');
-        const successMsg = document.getElementById('formSuccess');
 
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            if (form.checkValidity()) {
-                // Handle form submission here (e.g., AJAX)
-                console.log('Form is valid. Submitting...');
-
-                // For demo: show success, reset form and remove validation styles
-                successMsg.classList.remove('d-none');
-                form.reset();
-                form.classList.remove('was-validated');
-
-                // Hide success message after 5 seconds
-                setTimeout(() => {
-                    successMsg.classList.add('d-none');
-                }, 5000);
-
-            } else {
-                form.classList.add('was-validated');
-                successMsg.classList.add('d-none');
-            }
-        });
-
-        // Scroll Animation
+        // 1. Scroll Animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -405,6 +435,35 @@ $page_description = "Apply online for admission at Manaj School of Career Develo
 
         document.querySelectorAll('.fade-in').forEach(el => {
             observer.observe(el);
+        });
+
+        // 2. Form Handling
+        const form = document.getElementById('admissionForm');
+        const successMsg = document.getElementById('formSuccess');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Simple validation check
+            if (form.checkValidity()) {
+                const btn = form.querySelector('.btn-submit');
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+                btn.style.opacity = '0.7';
+
+                // Simulate server request
+                setTimeout(() => {
+                    successMsg.classList.add('show');
+                    form.reset();
+                    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Application';
+                    btn.style.opacity = '1';
+
+                    // Hide success after 5s
+                    setTimeout(() => { successMsg.classList.remove('show'); }, 5000);
+                }, 1500);
+            } else {
+                // If invalid, browser will show default tooltips required
+                form.reportValidity();
+            }
         });
     });
     </script>

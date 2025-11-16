@@ -12,51 +12,104 @@
     <title><?php echo $page_title; ?></title>
     <meta name="description" content="<?php echo $page_description; ?>">
 
-    <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="<?php echo $page_title; ?>">
     <meta property="og:description" content="<?php echo $page_description; ?>">
     <meta property="og:type" content="website">
     <meta property="og:image" content="assets/images/logo.png">
 
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/logo.png">
 
-    <!-- Stylesheets -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-    <!-- Google Fonts: Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         /* =========================================
-           GLOBAL STYLING & COLOR PALETTE
+           RESET & VARIABLES
            ========================================= */
         :root {
+            /* --- COLORS --- */
             --primary: #EC3237;   /* Red */
-            --secondary: #FBBB71; /* Yellow */
-            --dark: #363435;      /* Dark */
+            --primary-dark: #c82a2f;
+            --secondary: #01334d; /* Dark Blue */
+            --accent: #FBBB71;    /* Yellow/Gold */
+            --dark: #363435;      /* Black/Dark Grey */
             --light: #FEFEFE;     /* White */
-            --bs-body-font-family: 'Poppins', sans-serif;
-            --bs-body-color: var(--dark);
+            --text-grey: #555555; /* Slightly darker grey for better readability */
+            --text-light: #f0f0f0;/* Light Text for dark bg */
+
+            /* --- FONTS --- */
+            /* Merriweather for Headings (Academic feel) */
+            --font-heading: 'Merriweather', serif;
+            /* Poppins for Body (Modern/Clean feel) */
+            --font-body: 'Poppins', sans-serif;
+
+            --max-width: 1200px;
+            --transition: all 0.3s ease;
         }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* =========================================
+           GLOBAL TYPOGRAPHY STYLES
+           ========================================= */
 
         body {
+            font-family: var(--font-body); /* Use Poppins for general text */
             background-color: var(--light);
+            color: var(--text-grey);       /* Grey text on white bg */
+            font-size: 16px;               /* Standard readable size */
+            line-height: 1.7;              /* Good breathing room for reading */
+            font-weight: 400;
+            overflow-x: hidden;
         }
 
-        .section-padding {
-            padding: 80px 0;
+        /* Headings (H1 - H6) */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading); /* Use Merriweather for titles */
+            color: var(--secondary);          /* Dark Blue looks more academic than black */
+            font-weight: 700;                 /* Bold for authority */
+            margin-bottom: 15px;
+            line-height: 1.3;
         }
 
-        /* Titles */
+        /* Specific Heading Sizes */
+        h1 { font-size: 3.5rem; } /* Hero Titles */
+        h2 { font-size: 2.5rem; } /* Section Titles */
+        h3 { font-size: 1.75rem; } /* Card Titles */
+        h4 { font-size: 1.25rem; } /* Subtitles */
+
+        /* Paragraphs */
+        p {
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            color: var(--text-grey);
+        }
+
+        /* Links & Buttons (Keep Poppins for navigation/action items) */
+        a, .btn, button, .nav-link {
+            font-family: var(--font-body);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* Section Titles (Specific Style) */
         .section-title {
-            font-weight: 700;
+            font-family: var(--font-heading);
+            font-weight: 900; /* Extra Bold */
             color: var(--dark);
-            font-size: clamp(2rem, 4vw, 2.8rem);
-            margin-bottom: 12px;
+            text-transform: capitalize; /* Normal capitalization looks more prestigious */
+            letter-spacing: -0.5px;     /* Tighter spacing for serif headings */
+            margin-bottom: 10px;
         }
 
         .section-title .highlight {
@@ -64,241 +117,344 @@
         }
 
         .section-subtitle {
+            font-family: var(--font-body);
             font-size: 1.1rem;
-            color: #6c757d;
+            font-weight: 400;
+            color: #888;
+            letter-spacing: 1px;        /* Slight spacing for subtitles */
+            text-transform: uppercase;  /* Uppercase for small subtitles */
             max-width: 600px;
             margin: 0 auto 40px auto;
         }
 
-        /* Buttons */
+        /* Highlight Text (e.g. inside spans) */
+        .highlight {
+            color: var(--primary);
+            font-style: italic; /* Italic Serif looks very elegant */
+        }
+
+        /* Responsive Typography */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            body { font-size: 15px; }
+        }
+
+        /* =========================================
+           UTILITIES & LAYOUT
+           ========================================= */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .text-center { text-align: center; }
+
+        /* Grid System Replacement */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+
+        /* =========================================
+           BUTTONS
+           ========================================= */
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
         .btn-primary {
             background-color: var(--primary);
-            border-color: var(--primary);
-            padding: 12px 24px;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            color: var(--light);
         }
+
         .btn-primary:hover {
-            background-color: #c82a2f; /* Darker Red */
-            border-color: #c82a2f;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(236, 50, 55, 0.3);
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(236, 50, 55, 0.3);
+            color: var(--light);
         }
 
         .btn-secondary {
             background-color: var(--secondary);
-            border-color: var(--secondary);
-            color: var(--dark);
-            padding: 12px 24px;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            color: var(--light);
         }
+
         .btn-secondary:hover {
-            background-color: #e6951b; /* Darker Yellow */
-            border-color: #e6951b;
+            background-color: var(--accent);
             color: var(--dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(251, 187, 113, 0.4);
+            transform: translateY(-3px);
         }
 
         /* =========================================
-           1. HERO CAROUSEL
+           1. HERO SLIDER
            ========================================= */
-        .hero-carousel {
-            height: 90vh;
-            min-height: 700px;
+        .hero-slider {
             position: relative;
-        }
-        .carousel-item {
             height: 90vh;
-            min-height: 700px;
-            background-size: cover;
-            background-position: center;
+            min-height: 600px;
+            overflow: hidden;
+            background: var(--dark);
         }
-        .hero-overlay {
+
+        .slide {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, rgba(54, 52, 53, 0.8) 0%, rgba(54, 52, 53, 0.3) 100%);
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
             display: flex;
             align-items: center;
+            z-index: 1;
         }
-        .hero-title {
-            font-size: clamp(2.5rem, 5vw, 4.2rem);
-            font-weight: 800;
+
+        .slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(54, 52, 53, 0.9) 0%, rgba(54, 52, 53, 0.4) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
             color: var(--light);
-            line-height: 1.2;
+            max-width: 700px;
+            padding-left: 20px;
+        }
+
+        .hero-title {
+            /* Typography handled by global h1, adding animation specific styles */
             margin-bottom: 20px;
+            transform: translateY(30px);
             opacity: 0;
+            transition: all 0.8s ease 0.3s;
+            color: var(--light); /* Override default dark blue for hero */
         }
-        .hero-title .highlight {
-            color: var(--secondary); /* Yellow Highlight */
-        }
+
         .hero-description {
             font-size: 1.2rem;
-            color: rgba(254, 254, 254, 0.9);
-            max-width: 550px;
+            color: rgba(255,255,255,0.9);
             margin-bottom: 30px;
+            transform: translateY(30px);
             opacity: 0;
+            transition: all 0.8s ease 0.5s;
         }
-        .hero-cta-group {
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            transform: translateY(30px);
             opacity: 0;
+            transition: all 0.8s ease 0.7s;
         }
 
-        /* Slide Animations */
-        .carousel-item.active .hero-title { animation: fadeInUp 0.8s 0.2s ease-out forwards; }
-        .carousel-item.active .hero-description { animation: fadeInUp 0.8s 0.4s ease-out forwards; }
-        .carousel-item.active .hero-cta-group { animation: fadeInUp 0.8s 0.6s ease-out forwards; }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .slide.active .hero-title,
+        .slide.active .hero-description,
+        .slide.active .hero-btns {
+            transform: translateY(0);
+            opacity: 1;
         }
 
-        /* Slide Images (Placeholders) */
+        /* Slide Backgrounds */
         .slide-1 { background-image: url('https://placehold.co/1920x1080/363435/FEFEFE?text=Modern+Campus'); }
         .slide-2 { background-image: url('https://placehold.co/1920x1080/EC3237/FEFEFE?text=Smart+Classrooms'); }
         .slide-3 { background-image: url('https://placehold.co/1920x1080/FBBB71/363435?text=Expert+Faculty'); }
         .slide-4 { background-image: url('https://placehold.co/1920x1080/363435/FEFEFE?text=Student+Life'); }
 
-        /* Carousel Indicators */
-        .carousel-indicators [data-bs-target] {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: var(--light);
-            border: 0;
-            opacity: 0.5;
-            transition: all 0.3s ease;
+        .slider-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
         }
-        .carousel-indicators .active {
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .dot.active {
+            background: var(--accent);
             width: 30px;
             border-radius: 10px;
-            opacity: 1;
-            background-color: var(--secondary); /* Active dot is Yellow */
         }
 
         /* =========================================
-           2. ABOUT US PREVIEW
+           2. ABOUT SECTION
            ========================================= */
-        .about-preview img {
+        .about-img {
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+
+        .highlight-text {
+            font-size: 1.2rem;
+            color: var(--dark);
+            font-weight: 500;
+            margin-bottom: 15px;
+            display: block;
         }
 
         /* =========================================
            3. WHY CHOOSE US
            ========================================= */
+        .bg-grey { background-color: #f8f9fa; }
+
         .feature-card {
             background: var(--light);
-            border: 1px solid #eee;
-            border-radius: 12px;
-            padding: 30px;
+            padding: 40px 30px;
             text-align: center;
-            transition: all 0.3s ease;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            transition: var(--transition);
             height: 100%;
         }
+
         .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.07);
-            border-left: 4px solid var(--primary); /* Red accent on hover */
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--primary);
         }
+
         .feature-icon {
             font-size: 3rem;
             color: var(--primary);
             margin-bottom: 20px;
         }
+
         .feature-card h5 {
+            font-size: 1.25rem;
             font-weight: 600;
             color: var(--dark);
             margin-bottom: 10px;
-        }
-        .feature-card p {
-            font-size: 0.95rem;
-            color: #6c757d;
+            font-family: var(--font-heading);
         }
 
         /* =========================================
-           4. OUR PROGRAMS
+           4. PROGRAMS
            ========================================= */
         .program-card {
+            background: var(--light);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
             height: 100%;
+            display: flex;
+            flex-direction: column;
         }
+
         .program-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
         }
-        .program-card .card-body {
-            padding: 25px;
+
+        .card-body { padding: 25px; flex: 1; }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            font-family: var(--font-body);
         }
-        .program-card h5 {
+
+        .card-title {
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--dark);
+            margin-bottom: 10px;
         }
-        .program-card .badge {
-            background-color: var(--primary);
-            font-weight: 500;
-        }
-        .program-card .card-link {
-            text-decoration: none;
-            font-weight: 600;
+
+        .card-link {
             color: var(--primary);
+            font-weight: 600;
+            margin-top: 15px;
+            display: inline-block;
         }
-        .program-card .card-link:hover {
-            text-decoration: underline;
-        }
+        .card-link:hover { text-decoration: underline; }
 
         /* =========================================
            5. STATS SECTION
            ========================================= */
         .stats-section {
             background-color: var(--dark);
-            color: var(--light);
-        }
-        .stat-item .stat-number {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: var(--secondary); /* Yellow numbers */
-        }
-        .stat-item .stat-label {
-            font-size: 1rem;
-            font-weight: 500;
-            color: rgba(254, 254, 254, 0.8);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: var(--text-light); /* Rule: White text on black bg */
         }
 
-        /* =========================================
-           6. CTA SECTION
-           ========================================= */
-        .cta-section {
-            background-color: var(--primary);
-            color: var(--light);
+        .stat-item {
+            text-align: center;
+            padding: 20px;
         }
-        .cta-section .btn-light {
-            color: var(--primary);
-            font-weight: 600;
-            padding: 12px 24px;
-            border-radius: 8px;
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 5px;
+            font-family: var(--font-body); /* Numbers often look better in Sans Serif */
         }
-        .cta-section .btn-outline-light {
-            font-weight: 600;
-            padding: 12px 24px;
-            border-radius: 8px;
-            border-width: 2px;
+
+        .stat-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            font-family: var(--font-body);
         }
 
     </style>
@@ -309,240 +465,157 @@
     <?php include 'includes/topbar.php'; ?>
     <?php include 'includes/navbar.php'; ?>
 
-    <!-- =========================================
-         1. HERO CAROUSEL SECTION
-         ========================================= -->
-    <section id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-        <!-- Indicators -->
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-        </div>
+    <?php include 'Home/hero.php'; ?>
+    <?php include 'Home/notification.php'; ?>
+    <?php include 'Home/about.php'; ?>
+    <?php include 'Home/why.php'; ?>
 
-        <!-- Slides -->
-        <div class="carousel-inner">
-            <!-- Slide 1: Welcome -->
-            <div class="carousel-item active slide-1">
-                <div class="hero-overlay"></div>
-                <div class="container hero-content">
-                    <div class="col-lg-7">
-                        <h1 class="hero-title">Welcome to <span class="highlight">Manaj School</span> of Career Development</h1>
-                        <p class="hero-description">Empowering students with quality education, modern facilities, and a path to a successful future.</p>
-                        <div class="hero-cta-group d-flex gap-3">
-                            <a href="admission.php" class="btn btn-primary">Apply Now</a>
-                            <a href="about.php" class="btn btn-secondary">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Slide 2: Academics -->
-            <div class="carousel-item slide-2">
-                <div class="hero-overlay"></div>
-                <div class="container hero-content">
-                    <div class="col-lg-7">
-                        <h1 class="hero-title">Modern <span class="highlight">Curriculum</span></h1>
-                        <p class="hero-description">Our courses are designed to meet contemporary standards, ensuring your child is ready for tomorrow's challenges.</p>
-                        <div class="hero-cta-group d-flex gap-3">
-                            <a href="courses.php" class="btn btn-primary">View Courses</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Slide 3: Faculty -->
-            <div class="carousel-item slide-3">
-                <div class="hero-overlay"></div>
-                <div class="container hero-content">
-                    <div class="col-lg-7">
-                        <h1 class="hero-title">Expert & <span class="highlight">Caring Faculty</span></h1>
-                        <p class="hero-description">Learn from dedicated and experienced teachers who are masters in their fields and mentors at heart.</p>
-                        <div class="hero-cta-group d-flex gap-3">
-                            <a href="about.php#faculty" class="btn btn-primary">Meet Our Team</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Slide 4: Student Life -->
-            <div class="carousel-item slide-4">
-                <div class="hero-overlay"></div>
-                <div class="container hero-content">
-                    <div class="col-lg-7">
-                        <h1 class="hero-title">Holistic <span class="highlight">Development</span></h1>
-                        <p class="hero-description">We focus on more than just academics, with rich programs in sports, arts, and leadership.</p>
-                        <div class="hero-cta-group d-flex gap-3">
-                            <a href="admission.php" class="btn btn-primary">Join Our_Community</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Controls (Optional, can be uncommented) -->
-        <!--
-        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span>
-        </button>
-        -->
-    </section>
 
-    <!-- =========================================
-         2. ABOUT US PREVIEW SECTION
-         ========================================= -->
-    <section class="about-preview section-padding">
-        <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6">
-                    <img src="https://placehold.co/600x400/FEFEFE/363435?text=Our+Students" alt="Manaj School Students" class="img-fluid">
-                </div>
-                <div class="col-lg-6">
-                    <h2 class="section-title">A Tradition of <span class="highlight">Excellence</span></h2>
-                    <p class="text-secondary-emphasis fs-5 mb-3">We are more than just a school; we are a community dedicated to nurturing the next generation of leaders, thinkers, and innovators.</p>
-                    <p class="text-muted">For over 15 years, Manaj School has been a cornerstone of education, blending rigorous academics with strong moral values. Our mission is to provide a safe, disciplined, and modern learning environment where every student can thrive.</p>
-                    <a href="about.php" class="btn btn-primary mt-3">More About Us</a>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- =========================================
-         3. WHY CHOOSE US SECTION
-         ========================================= -->
-    <section class="why-choose-us section-padding" style="background-color: #f8f9fa;">
+
+    <section class="section-padding bg-grey">
         <div class="container">
             <div class="text-center">
                 <h2 class="section-title">Why <span class="highlight">Choose Us?</span></h2>
                 <p class="section-subtitle">Discover the advantages that make Manaj School the right choice for your family.</p>
             </div>
 
-            <div class="row g-4 mt-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fa-solid fa-laptop-code"></i></div>
-                        <h5>Smart Classrooms</h5>
-                        <p>Interactive, technology-enabled classrooms that make learning engaging and effective.</p>
-                    </div>
+            <div class="grid-3">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h5>Smart Classrooms</h5>
+                    <p>Interactive, technology-enabled classrooms that make learning engaging and effective.</p>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fa-solid fa-user-tie"></i></div>
-                        <h5>Expert Faculty</h5>
-                        <p>Highly qualified and dedicated teachers who provide personalized attention to each student.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-user-tie"></i></div>
+                    <h5>Expert Faculty</h5>
+                    <p>Highly qualified and dedicated teachers who provide personalized attention to each student.</p>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                        <h5>Safe & Secure Campus</h5>
-                        <p>A completely secure campus with 24/7 surveillance and trained staff to ensure student safety.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h5>Safe & Secure Campus</h5>
+                    <p>A completely secure campus with 24/7 surveillance and trained staff to ensure student safety.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- =========================================
-         4. OUR PROGRAMS SECTION
-         ========================================= -->
-    <section class="programs-section section-padding">
+    <section class="section-padding">
         <div class="container">
             <div class="text-center">
                 <h2 class="section-title">Our <span class="highlight">Programs</span></h2>
-                <p class="section-subtitle">We offer a diverse range of academic streams to cater to every student's passion and career goals.</p>
+                <p class="section-subtitle">We offer a diverse range of academic streams to cater to every student's passion.</p>
             </div>
 
-            <div class="row g-4 mt-4 justify-content-center">
-                <!-- Program 1: Science -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="program-card">
-                        <img src="https://placehold.co/600x400/EC3237/FEFEFE?text=SCIENCE" class="card-img-top" alt="Science Program">
-                        <div class="card-body">
-                            <span class="badge mb-2">Academic</span>
-                            <h5 class="card-title">Science Stream</h5>
-                            <p class="card-text text-muted small">Focus on Physics, Chemistry, Maths, and Biology, preparing students for careers in medicine and engineering.</p>
-                            <a href="courses.php" class="card-link">Learn More <i class="fa-solid fa-arrow-right-long ms-1"></i></a>
-                        </div>
+            <div class="grid-3">
+                <div class="program-card">
+                    <img src="https://placehold.co/600x400/EC3237/FEFEFE?text=SCIENCE" alt="Science Program">
+                    <div class="card-body">
+                        <span class="badge">Academic</span>
+                        <h3 class="card-title">Science Stream</h3>
+                        <p>Focus on Physics, Chemistry, Maths, and Biology, preparing students for careers in medicine and engineering.</p>
+                        <a href="courses.php" class="card-link">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
                     </div>
                 </div>
-                <!-- Program 2: Commerce -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="program-card">
-                        <img src="https://placehold.co/600x400/FBBB71/363435?text=COMMERCE" class="card-img-top" alt="Commerce Program">
-                        <div class="card-body">
-                            <span class="badge mb-2">Professional</span>
-                            <h5 class="card-title">Commerce Stream</h5>
-                            <p class="card-text text-muted small">Building a strong foundation in Accountancy, Economics, and Business for future financial leaders.</p>
-                            <a href="courses.php" class="card-link">Learn More <i class="fa-solid fa-arrow-right-long ms-1"></i></a>
-                        </div>
+                <div class="program-card">
+                    <img src="https://placehold.co/600x400/FBBB71/363435?text=COMMERCE" alt="Commerce Program">
+                    <div class="card-body">
+                        <span class="badge">Professional</span>
+                        <h3 class="card-title">Commerce Stream</h3>
+                        <p>Building a strong foundation in Accountancy, Economics, and Business for future financial leaders.</p>
+                        <a href="courses.php" class="card-link">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
                     </div>
                 </div>
-                <!-- Program 3: Arts -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="program-card">
-                        <img src="https://placehold.co/600x400/363435/FEFEFE?text=ARTS" class="card-img-top" alt="Arts Program">
-                        <div class="card-body">
-                            <span class="badge mb-2">Creative</span>
-                            <h5 class="card-title">Arts & Humanities</h5>
-                            <p class="card-text text-muted small">Exploring subjects like History, Literature, and Political Science to create informed global citizens.</p>
-                            <a href="courses.php" class="card-link">Learn More <i class="fa-solid fa-arrow-right-long ms-1"></i></a>
-                        </div>
+                <div class="program-card">
+                    <img src="https://placehold.co/600x400/363435/FEFEFE?text=ARTS" alt="Arts Program">
+                    <div class="card-body">
+                        <span class="badge">Creative</span>
+                        <h3 class="card-title">Arts & Humanities</h3>
+                        <p>Exploring subjects like History, Literature, and Political Science to create informed global citizens.</p>
+                        <a href="courses.php" class="card-link">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- =========================================
-         5. STATS SECTION
-         ========================================= -->
     <section class="stats-section section-padding">
         <div class="container">
-            <div class="row g-4 text-center">
-                <div class="col-lg-3 col-md-6">
-                    <div class="stat-item">
-                        <h3 class="stat-number" data-target="1500">0</h3>
-                        <p class="stat-label">Happy Students</p>
-                    </div>
+            <div class="grid-4">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="1500">0</span>
+                    <span class="stat-label">Happy Students</span>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="stat-item">
-                        <h3 class="stat-number" data-target="75">0</h3>
-                        <p class="stat-label">Expert Teachers</p>
-                    </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="75">0</span>
+                    <span class="stat-label">Expert Teachers</span>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="stat-item">
-                        <h3 class="stat-number" data-target="15">0</h3>
-                        <p class="stat-label">Years of Experience</p>
-                    </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="15">0</span>
+                    <span class="stat-label">Years of Experience</span>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="stat-item">
-                        <h3 class="stat-number" data-target="95">0</h3>
-                        <p class="stat-label">Success Rate (%)</p>
-                    </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="95">0</span>
+                    <span class="stat-label">Success Rate (%)</span>
                 </div>
             </div>
         </div>
     </section>
-
 
     <?php include 'includes/footer.php'; ?>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Animated Counter Script -->
     <script>
+    // ======================
+    // 1. Custom Slider Logic
+    // ======================
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const totalSlides = slides.length;
+    let slideInterval;
+
+    function showSlide(index) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        if (index >= totalSlides) currentSlide = 0;
+        else if (index < 0) currentSlide = totalSlides - 1;
+        else currentSlide = index;
+
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
+
+    function setSlide(index) {
+        showSlide(index);
+        resetTimer();
+    }
+
+    function startTimer() {
+        slideInterval = setInterval(nextSlide, 5000);
+    }
+
+    function resetTimer() {
+        clearInterval(slideInterval);
+        startTimer();
+    }
+
+    startTimer();
+
+    // ======================
+    // 2. Animated Counters
+    // ======================
     document.addEventListener("DOMContentLoaded", () => {
         const counters = document.querySelectorAll('.stat-number');
-        const speed = 200; // The lower the number, the faster the count
+        const speed = 200;
 
         const animateCounter = (counter) => {
             const target = +counter.getAttribute('data-target');
@@ -551,15 +624,13 @@
 
             if (count < target) {
                 counter.innerText = Math.min(count + inc, target);
-                setTimeout(() => animateCounter(counter), 10);
+                setTimeout(() => animateCounter(counter), 20);
             } else {
-                // Add '+' if the original target had it
                 if (target === 1500 || target === 75 || target === 15) {
                      counter.innerText = target + '+';
                 } else if (target === 95) {
                      counter.innerText = target + '%';
-                }
-                else {
+                } else {
                     counter.innerText = target;
                 }
             }
@@ -569,15 +640,14 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     counters.forEach(counter => {
-                        // Check if already counted
                         if (counter.innerText === '0') {
                             animateCounter(counter);
                         }
                     });
-                    observer.disconnect(); // Disconnect after animating once
+                    observer.disconnect();
                 }
             });
-        }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
+        }, { threshold: 0.5 });
 
         const statsSection = document.querySelector('.stats-section');
         if (statsSection) {
